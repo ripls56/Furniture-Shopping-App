@@ -1,4 +1,4 @@
-package com.example.furniture_shopping_app.ui.login_screen
+package com.example.furniture_shopping_app.ui.registration_screen
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -16,11 +16,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -29,26 +33,23 @@ import com.example.furniture_shopping_app.ui.theme.Black80
 import com.example.furniture_shopping_app.ui.theme.FurnitureShoppingAppTheme
 import com.example.furniture_shopping_app.ui.theme.PoppinsFamily
 
-
 @ExperimentalMaterial3Api
-class LoginActivity : ComponentActivity() {
+class RegistrationActivity : ComponentActivity() {
 
-    private val mainText = "Hello!\n" +
-            "WELCOME BACK"
-
+    private val mainText = "WELCOME"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
+        setContent(){
             FurnitureShoppingAppTheme() {
-                Login()
+                Registration()
             }
         }
     }
 
     @Preview(showBackground = true)
     @Composable
-    fun Login() {
+    fun Registration() {
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -75,12 +76,12 @@ class LoginActivity : ComponentActivity() {
                     Spacer(modifier = Modifier.height(10.dp))
                     PasswordInputText()
                     Spacer(modifier = Modifier.height(10.dp))
-                    ForgotButton()
+                    ConfirmPasswordInputText()
                     Spacer(modifier = Modifier.height(10.dp))
                     LoginButton()
                     Spacer(modifier = Modifier.height(10.dp))
                     SignUpButton()
-                    Spacer(modifier = Modifier.height(10.dp))
+                    Spacer(modifier = Modifier.height(5.dp))
                 }
             }
         }
@@ -101,7 +102,7 @@ class LoginActivity : ComponentActivity() {
 
     @Composable
     private fun EmailInputText(){
-        val login = remember{mutableStateOf("")}
+        val login = remember{ mutableStateOf("") }
         OutlinedTextField(
             value = login.value,
             onValueChange = {
@@ -120,7 +121,7 @@ class LoginActivity : ComponentActivity() {
 
     @Composable
     private fun PasswordInputText(){
-        val password = remember{mutableStateOf("")}
+        val password = remember{ mutableStateOf("") }
         var passwordVisibility = remember { mutableStateOf(false) }
         FurnitureShoppingAppTheme() {
             OutlinedTextField(
@@ -159,25 +160,42 @@ class LoginActivity : ComponentActivity() {
     }
 
     @Composable
-    private fun ForgotButton(){
-        TextButton(
-            onClick = {},
-            colors = ButtonDefaults.buttonColors(
-                contentColor = Black80,
-                containerColor = Color.White
-            ),
-            modifier = Modifier.height(40.dp),
-            shape = ShapeDefaults.ExtraSmall
-        ) {
-            Box(
-                contentAlignment = Alignment.Center,
-            ) {
-                Text(
-                    text = "Forgot Password",
-                    fontFamily = PoppinsFamily,
-                    fontSize = 16.sp,
-                )
-            }
+    private fun ConfirmPasswordInputText(){
+        val password = remember{ mutableStateOf("") }
+        var passwordVisibility = remember { mutableStateOf(false) }
+        FurnitureShoppingAppTheme() {
+            OutlinedTextField(
+                value = password.value,
+                onValueChange = {
+                    password.value = it
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(66.dp),
+                isError = false,
+                label = {
+                    Text(text = "Confirm Password")
+                },
+                singleLine = true,
+                visualTransformation = if (passwordVisibility.value) VisualTransformation.None else PasswordVisualTransformation(),
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Password
+                ),
+                trailingIcon = {
+                    IconButton(
+                        onClick = {
+                            passwordVisibility.value = !passwordVisibility.value
+                        },
+                        colors = IconButtonDefaults.iconButtonColors(
+                            contentColor = MaterialTheme.colorScheme.primary
+                        )
+                    ) {
+                        if (passwordVisibility.value)
+                            Icon(Icons.Filled.VisibilityOff, contentDescription = "")
+                        else Icon(Icons.Filled.Visibility, contentDescription = "")
+                    }
+                },
+            )
         }
     }
 
@@ -210,23 +228,31 @@ class LoginActivity : ComponentActivity() {
 
     @Composable
     private fun SignUpButton(){
-        TextButton(
-            onClick = {},
-            colors = ButtonDefaults.buttonColors(
-                contentColor = Black80,
-                containerColor = Color.White
-            ),
-            modifier = Modifier.height(40.dp),
-            shape = ShapeDefaults.ExtraSmall
-        ) {
-            Box(
-                contentAlignment = Alignment.Center,
+        FurnitureShoppingAppTheme() {
+            TextButton(
+                onClick = {},
+                shape = ShapeDefaults.ExtraSmall
             ) {
-                Text(
-                    text = "Sign Up",
-                    fontFamily = PoppinsFamily,
-                    fontSize = 16.sp,
-                )
+                Box(
+                    modifier = Modifier
+                        .align(Alignment.CenterVertically)
+                ){
+                    Text(
+                        buildAnnotatedString {
+                            append(text = "Already have account? ")
+                            withStyle(
+                                style = SpanStyle(
+                                    fontWeight = FontWeight.Bold
+                                )
+                            ){
+                                append(text = "Sign Up")
+                            }
+                        },
+                        style = TextStyle(
+                            fontFamily = PoppinsFamily,
+                        ),
+                    )
+                }
             }
         }
     }
