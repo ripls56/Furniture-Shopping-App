@@ -6,10 +6,11 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
-import com.example.furniture_shopping_app.ui.registration_screen.RegistrationActivity
+import com.example.furniture_shopping_app.ui.screens.catalog_screen.CatalogScreen
 import com.example.furniture_shopping_app.ui.theme.Background
 import com.example.furniture_shopping_app.ui.theme.FurnitureShoppingAppTheme
 
@@ -24,9 +25,9 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier
                         .fillMaxSize()
-                        .background(Background),
+                        .background(MaterialTheme.colorScheme.background),
                 ) {
-                    RegistrationActivity().Registration()
+                    CatalogScreen()
                 }
             }
         }

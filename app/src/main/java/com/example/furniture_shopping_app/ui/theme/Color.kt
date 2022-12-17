@@ -4,6 +4,7 @@ import androidx.compose.ui.graphics.Color
 
 val Black80 = Color(24, 24 ,24)
 val Background = Color(0xFFF5F5F5)
+val OnPrimary = Color(0xFFF0F0F0)
 val Sub = Color(90, 90 ,90)
 val Secondary = Color(0xFFE0E0E0)
 val Success = Color(0xFF27AE60)

@@ -23,7 +23,7 @@ private val DarkColorScheme = darkColorScheme(
 )
 
 private val LightColorScheme = lightColorScheme(
-    background = Background,
+    background = Color.White,
     primary = Black80, // цвет внутри кнопки
     onPrimary = Color.Black,
 //    primaryContainer = Blue90,
