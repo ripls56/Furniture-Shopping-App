@@ -30,7 +30,7 @@ private const val mainText = "MAKE YOUR\nHOME BEAUTIFUL"
 
 @Preview
 @Composable
-fun GetStarted(){
+fun GetStartedScreen(){
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background

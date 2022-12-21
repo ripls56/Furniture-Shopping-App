@@ -27,6 +27,8 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.example.furniture_shopping_app.navigation.Screen
 import com.example.furniture_shopping_app.ui.components.SofaPicture
 import com.example.furniture_shopping_app.ui.theme.Black80
 import com.example.furniture_shopping_app.ui.theme.FurnitureShoppingAppTheme
@@ -36,9 +38,8 @@ import com.example.furniture_shopping_app.ui.theme.PoppinsFamily
 private const val mainText = "WELCOME"
 
 
-@Preview(showBackground = true)
 @Composable
-fun Registration() {
+fun RegistrationScreen(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -46,8 +47,10 @@ fun Registration() {
             .padding(vertical = 50.dp, horizontal = 20.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        //Sofa picture on top of the screen
         SofaPicture()
         Spacer(modifier = Modifier.height(30.dp))
+        //Main text below sofa
         MainText(text = mainText)
         Spacer(modifier = Modifier.height(30.dp))
         Surface(
@@ -61,15 +64,20 @@ fun Registration() {
                 verticalArrangement = Arrangement.SpaceEvenly,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                //Email input
                 EmailInputText()
                 Spacer(modifier = Modifier.height(10.dp))
+                //Password input
                 PasswordInputText()
                 Spacer(modifier = Modifier.height(10.dp))
+                //Confirm password input
                 ConfirmPasswordInputText()
                 Spacer(modifier = Modifier.height(10.dp))
-                LoginButton()
+                //Registration button
+                RegistrationButton()
                 Spacer(modifier = Modifier.height(10.dp))
-                SignUpButton()
+                //Sign In button
+                SignInButton(navController = navController)
                 Spacer(modifier = Modifier.height(5.dp))
             }
         }
@@ -189,7 +197,7 @@ private fun ConfirmPasswordInputText(){
 }
 
 @Composable
-private fun LoginButton(){
+private fun RegistrationButton(){
     ElevatedButton(
         onClick = {},
         modifier = Modifier
@@ -207,7 +215,7 @@ private fun LoginButton(){
             modifier = Modifier.wrapContentSize()
         ){
             Text(
-                text = "Login",
+                text = "Registration",
                 fontFamily = PoppinsFamily,
                 fontSize = 16.sp,
             )
@@ -216,10 +224,12 @@ private fun LoginButton(){
 }
 
 @Composable
-private fun SignUpButton(){
+private fun SignInButton(navController: NavController){
     FurnitureShoppingAppTheme {
         TextButton(
-            onClick = {},
+            onClick = {
+                navController.navigate(Screen.Login.route)
+            },
             shape = ShapeDefaults.ExtraSmall
         ) {
             Box(
@@ -234,7 +244,7 @@ private fun SignUpButton(){
                                 fontWeight = FontWeight.Bold
                             )
                         ){
-                            append(text = "Sign Up")
+                            append(text = "Sign In")
                         }
                     },
                     style = TextStyle(

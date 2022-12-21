@@ -11,11 +11,12 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.furniture_shopping_app.ui.components.CatalogChips
 import com.example.furniture_shopping_app.ui.components.CatalogTopAppBar
 
 @Composable
-fun CatalogScreen() {
+fun CatalogScreen(navController: NavController) {
     Scaffold(
         topBar = {
             CatalogTopAppBar()

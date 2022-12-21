@@ -4,7 +4,9 @@ package com.example.furniture_shopping_app.ui.screens.login_screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
@@ -23,6 +25,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.example.furniture_shopping_app.navigation.Screen
 import com.example.furniture_shopping_app.ui.components.SofaPicture
 import com.example.furniture_shopping_app.ui.theme.Black80
 import com.example.furniture_shopping_app.ui.theme.FurnitureShoppingAppTheme
@@ -34,14 +38,14 @@ private const val mainText = "Hello!\n" +
         "WELCOME BACK"
 
 
-@Preview(showBackground = true)
 @Composable
-fun Login() {
+fun LoginScreen(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
-            .padding(vertical = 50.dp, horizontal = 20.dp),
+            .padding(vertical = 50.dp, horizontal = 20.dp)
+            .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         SofaPicture()
@@ -65,9 +69,9 @@ fun Login() {
                 Spacer(modifier = Modifier.height(10.dp))
                 ForgotButton()
                 Spacer(modifier = Modifier.height(10.dp))
-                LoginButton()
+                LoginButton(navController = navController)
                 Spacer(modifier = Modifier.height(10.dp))
-                SignUpButton()
+                SignUpButton(navController = navController)
                 Spacer(modifier = Modifier.height(10.dp))
             }
         }
@@ -149,7 +153,9 @@ private fun PasswordInputText(){
 @Composable
 private fun ForgotButton(){
     TextButton(
-        onClick = {},
+        onClick = {
+
+        },
         colors = ButtonDefaults.buttonColors(
             contentColor = Black80,
             containerColor = Color.White
@@ -170,9 +176,15 @@ private fun ForgotButton(){
 }
 
 @Composable
-private fun LoginButton(){
+private fun LoginButton(navController: NavController){
     ElevatedButton(
-        onClick = {},
+        onClick = {
+            navController.navigate(Screen.Catalog.route){
+                popUpTo(Screen.Login.route){
+                    inclusive = true
+                }
+            }
+        },
         modifier = Modifier
             .fillMaxWidth()
             .height(56.dp),
@@ -197,9 +209,11 @@ private fun LoginButton(){
 }
 
 @Composable
-private fun SignUpButton(){
+private fun SignUpButton(navController: NavController){
     TextButton(
-        onClick = {},
+        onClick = {
+            navController.navigate(Screen.Registration.route)
+        },
         colors = ButtonDefaults.buttonColors(
             contentColor = Black80,
             containerColor = Color.White
