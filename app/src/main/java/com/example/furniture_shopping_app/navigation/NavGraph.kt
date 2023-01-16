@@ -5,6 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.furniture_shopping_app.ui.screens.catalog_screen.CatalogScreen
+import com.example.furniture_shopping_app.ui.screens.home_screen.HomeScreen
 import com.example.furniture_shopping_app.ui.screens.login_screen.LoginScreen
 import com.example.furniture_shopping_app.ui.screens.registration_screen.RegistrationScreen
 
@@ -14,7 +15,7 @@ fun SetupNavGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Screen.Login.route
+        startDestination = Screen.Home.route
     ){
         composable(
             route = Screen.Login.route
@@ -27,9 +28,9 @@ fun SetupNavGraph(
             RegistrationScreen(navController = navController)
         }
         composable(
-            route = Screen.Catalog.route
+            route = Screen.Home.route
         ){
-            CatalogScreen(navController = navController)
+            HomeScreen(navController = navController)
         }
     }
 }
